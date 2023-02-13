@@ -12,8 +12,25 @@ namespace LookingForChars
         /// <returns>The number of occurrences of all characters.</returns>
         public static int GetCharsCount(string? str, char[]? chars)
         {
-            // TODO #1. Implement the method using "for" statement.
-            throw new NotImplementedException();
+            if (chars == null)
+            {
+                throw new ArgumentNullException(nameof(chars));
+            }
+
+            int count = 0;
+
+            for (int i = 0; i < str!.Length; i++)
+            {
+                for (int j = 0; j < chars.Length; j++)
+                {
+                    if (str[i] == chars[j])
+                    {
+                        count++;
+                    }
+                }
+            }
+
+            return count;
         }
 
         /// <summary>
@@ -26,8 +43,45 @@ namespace LookingForChars
         /// <returns>The number of occurrences of all characters within the specified range of elements in the <see cref="string"/>.</returns>
         public static int GetCharsCount(string? str, char[]? chars, int startIndex, int endIndex)
         {
-            // TODO #2. Implement the method using "while" statement.
-            throw new NotImplementedException();
+            if (str == null)
+            {
+                throw new ArgumentNullException(nameof(str));
+            }
+
+            if (chars == null)
+            {
+                throw new ArgumentNullException(nameof(chars));
+            }
+
+            if (startIndex < 0 || startIndex > str.Length)
+            {
+                throw new ArgumentOutOfRangeException(nameof(startIndex));
+            }
+
+            if (endIndex < startIndex || endIndex > str.Length)
+            {
+                throw new ArgumentOutOfRangeException(nameof(endIndex));
+            }
+
+            int count = 0;
+
+            while (startIndex < endIndex + 1)
+            {
+                int j = 0;
+                while (j < chars.Length)
+                {
+                    if (str[startIndex] == chars[j])
+                    {
+                        count++;
+                    }
+
+                    j++;
+                }
+
+                startIndex++;
+            }
+
+            return count;
         }
 
         /// <summary>
@@ -41,8 +95,57 @@ namespace LookingForChars
         /// <returns>The limited number of occurrences of characters to search for within the specified range of elements in the <see cref="string"/>.</returns>
         public static int GetCharsCount(string? str, char[]? chars, int startIndex, int endIndex, int limit)
         {
-            // TODO #3. Implement the method using "do..while" statements.
-            throw new NotImplementedException();
+            if (str is null)
+            {
+                throw new ArgumentNullException(nameof(str));
+            }
+
+            if (chars is null)
+            {
+                throw new ArgumentNullException(nameof(chars));
+            }
+
+            if (startIndex < 0 || startIndex > str.Length || startIndex > endIndex)
+            {
+                throw new ArgumentOutOfRangeException(nameof(startIndex));
+            }
+
+            if (endIndex > str.Length)
+            {
+                throw new ArgumentOutOfRangeException(nameof(endIndex));
+            }
+
+            if (limit < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(limit));
+            }
+
+            int count = 0;
+
+            do
+            {
+                int j = 0;
+                do
+                {
+                    if (str[startIndex] == chars[j])
+                    {
+                        count++;
+                    }
+
+                    if (count == limit)
+                    {
+                        return count;
+                    }
+
+                    j++;
+                }
+                while (j != chars.Length);
+
+                startIndex++;
+            }
+            while (startIndex <= endIndex);
+
+            return count;
         }
     }
 }
